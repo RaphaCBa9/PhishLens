@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+table {
+    margin-top: 30px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.safe {
+    background-color: #c6f6c6;
+}
+
+.malicious {
+    background-color: #f8c6c6;
+}

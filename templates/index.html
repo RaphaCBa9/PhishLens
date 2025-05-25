@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>PhishLens — Análise de Phishing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>PhishLens — Verificador de URLs</h1>
+
+    <form method="post">
+        <label for="urls">Insira uma URL por linha:</label><br>
+        <textarea name="urls" placeholder="https://exemplo.com"></textarea><br>
+        <input type="submit" value="Analisar">
+    </form>
+
+    {% if results %}
+    <h2>Resultados</h2>
+    <table>
+        <tr>
+            <th>URL</th>
+            <th>PhishTank</th>
+            <th>Números no domínio</th>
+            <th>Subdomínios excessivos</th>
+            <th>Caracteres especiais</th>
+            <th>Suspeita?</th>
+        </tr>
+        {% for r in results %}
+        <tr class="{{ 'malicious' if r.is_malicious else 'safe' }}">
+            <td>{{ r.url }}</td>
+            <td>{{ 'Sim' if r.in_phishtank else 'Não' }}</td>
+            <td>{{ 'Sim' if r.numbers_in_domain else 'Não' }}</td>
+            <td>{{ 'Sim' if r.too_many_subdomains else 'Não' }}</td>
+            <td>{{ 'Sim' if r.special_characters else 'Não' }}</td>
+            <td><strong>{{ '⚠️ Sim' if r.is_malicious else '✅ Não' }}</strong></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
