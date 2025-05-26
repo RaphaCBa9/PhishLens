@@ -46,19 +46,27 @@ def tooManySubdomains(url, limit=3):
     except:
         return False
 
-# Verifica presença de caracteres especiais
+
 def hasSpecialChars(url):
     return bool(re.search(r"[^a-zA-Z0-9:/._\-]", url))
 
-# Função principal de análise
+
 def checkUrl(url):
     url = url.strip()
 
+    url = url if url.startswith(("http://", "https://")) else f"http://{url}"
+
+    pasedUrl = urlparse(url)
+    pasedUrl = f"{pasedUrl.scheme}://{pasedUrl.netloc}{pasedUrl.path}"
+    print(f"Checking URL: {url}")
+
+
+
     result = {
         "url": url,
-        "hasDigits": hasDigits(url),
+        "hasDigits": hasDigits(pasedUrl),
         "subdomainCount": tooManySubdomains(url),
-        "specialChars": hasSpecialChars(url),
+        "specialChars": hasSpecialChars(pasedUrl),
         "inDatabase": checkUrlDatabase(url)
     }
 
