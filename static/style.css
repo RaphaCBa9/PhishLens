@@ -19,6 +19,7 @@ input[type="submit"] {
     margin-top: 10px;
     padding: 10px 20px;
     font-size: 16px;
+    cursor: pointer;
 }
 
 table {
@@ -34,9 +35,13 @@ th, td {
 }
 
 .safe {
-    background-color: #c6f6c6;
+    background-color: #c6f6c6; /* verde */
 }
 
-.malicious {
-    background-color: #f8c6c6;
+.attention {
+    background-color: #fff6c6; /* amarelo */
+}
+
+.unsafe {
+    background-color: #f8c6c6; /* vermelho */
 }

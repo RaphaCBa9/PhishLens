@@ -56,18 +56,25 @@ def checkUrl(url):
 
     result = {
         "url": url,
-        "numbers_in_domain": hasDigits(url),
-        "too_many_subdomains": tooManySubdomains(url),
-        "special_characters": hasSpecialChars(url),
-        "in_phishtank": checkUrlDatabase(url)
+        "hasDigits": hasDigits(url),
+        "subdomainCount": tooManySubdomains(url),
+        "specialChars": hasSpecialChars(url),
+        "inDatabase": checkUrlDatabase(url)
     }
 
-    # Determina se qualquer fator suspeito foi identificado
-    result["is_malicious"] = (
-        result["numbers_in_domain"] or
-        result["too_many_subdomains"] or
-        result["special_characters"] or
-        result["in_phishtank"]
+    flags = sum(
+        [result["hasDigits"], result["subdomainCount"], result["specialChars"], result["inDatabase"]]
     )
+
+    if result["inDatabase"] or flags > 2:
+        result["riskLevel"] = "unsafe"
+
+    elif flags <= 2 and flags > 0:
+        result["riskLevel"] = "attention"
+
+    else:
+        result["riskLevel"] = "safe"
+
+    
 
     return result
